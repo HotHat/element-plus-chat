@@ -42,8 +42,11 @@ export default {
 body {
   margin: 0;
   padding: 0;
-  background-image: url("~/assets/background.png");
+  background-color: #FFFCF5;
+  background-image: url("~/assets/background2.png");
+  background-repeat: no-repeat;
   background-size: contain;
+  background-position: bottom;
 }
 .footer,
 .header {

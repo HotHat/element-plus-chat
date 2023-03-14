@@ -59,10 +59,9 @@
             type="primary"
             native-type="submit"
             block
-          >Login</el-button>
+          >提交注册</el-button>
         </el-form-item>
-        <a class="forgot-password" href="https://oxfordinformatics.com/">忘记密码</a>
-        <a class="sign-up" href="https://oxfordinformatics.com/">注册</a>
+				<router-link to="/login" class="back-login">登录</router-link>
       </el-form>
     </el-card>
   </div>
@@ -175,7 +174,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.back-login {
+  display: flex;
+  justify-content: end;
+  margin-right: 15px;
+}
 .code-btn {
   width: 40px;
   height: 24px;

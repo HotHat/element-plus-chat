@@ -43,8 +43,11 @@ body {
   margin: 0;
   padding: 0;
   background: #102a43;
-  background-image: url("~/assets/background.png");
+  background-image: url("~/assets/background2.png");
   background-size: contain;
+	background-color: #FFFCF5;
+	background-position: bottom;
+	background-repeat: no-repeat;
 }
 .footer,
 .header {
