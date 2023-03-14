@@ -3,7 +3,7 @@
     <div class="header">
       <h2 class="logo">LOGO HERE</h2>
     </div>
-    <Login/>
+    <SignUp/>
 
     <div class="footer">
       <div class="links">
@@ -17,12 +17,12 @@
 </template>
 
 <script lang="ts">
-import Login from "~/components/Login.vue";
+import SignUp from "~/components/SignUp.vue";
 
 export default {
   name: "App",
   components: {
-    Login
+    SignUp
   }
 };
 </script>
@@ -42,6 +42,7 @@ export default {
 body {
   margin: 0;
   padding: 0;
+  background: #102a43;
   background-image: url("~/assets/background.png");
   background-size: contain;
 }

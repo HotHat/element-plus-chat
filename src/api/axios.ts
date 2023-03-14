@@ -1,10 +1,19 @@
 import axios from  "axios"
 
 const Axios = axios.create({
-	baseURL: "",
+	baseURL: import.meta.env.BASE_URL,
 	headers: {
 		"Content-Type": "application/json"
-	}
+	},
+	proxy: {
+    protocol: 'http',
+    host: '127.0.0.1',
+    port: 80,
+    // auth: {
+      // username: 'mikeymike',
+      // password: 'rapunz3l'
+    // }
+  },
   
 })
 

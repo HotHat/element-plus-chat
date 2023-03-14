@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <el-card>
-      <h2>登录</h2>
+      <h2>注册</h2>
       <el-form
         class="login-form"
         :model="model"
@@ -10,16 +10,26 @@
         @submit.native.prevent="login"
       >
         <el-form-item prop="email">
-          <el-input v-model="model.email" placeholder="Email">
+          <el-input v-model="model.email" placeholder="邮箱" type="email">
 						<template #prefix>
 							<el-icon class="el-input__icon"><Message /></el-icon>
+						</template>
+					</el-input>
+        </el-form-item>
+        <el-form-item prop="confirm-code">
+          <el-input  placeholder="" v-model="model.code">
+            <template #prefix>
+							<el-icon class="el-input__icon"><ChatSquare /></el-icon>
+            </template>
+						<template #suffix>
+              <el-button class="code-btn" type="primary">发送验证</el-button>
 						</template>
 					</el-input>
         </el-form-item>
         <el-form-item prop="password">
           <el-input
             v-model="model.password"
-            placeholder="Password"
+            placeholder="密码"
             type="password"
           >
 						<template #prefix>
@@ -28,6 +38,20 @@
 
 				</el-input>
         </el-form-item>
+        <el-form-item prop="">
+          <el-input
+            v-model="model.confirm"
+            placeholder="确认密码"
+            type="password"
+          >
+						<template #prefix>
+							<el-icon class="el-input__icon"><Lock /></el-icon>
+						</template>
+
+				</el-input>
+        </el-form-item>
+
+
         <el-form-item>
           <el-button
             :loading="loading"
@@ -38,14 +62,14 @@
           >Login</el-button>
         </el-form-item>
         <a class="forgot-password" href="https://oxfordinformatics.com/">忘记密码</a>
-				<router-link to="/sign-up">注册</router-link>
+        <a class="sign-up" href="https://oxfordinformatics.com/">注册</a>
       </el-form>
     </el-card>
   </div>
 </template>
 
 <script lang="ts">
-import { User, Lock, Message } from '@element-plus/icons-vue'
+import { User, Lock, Message, ChatSquare } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import * as Api from '~/api/chat'
 
@@ -55,7 +79,8 @@ export default {
 	components: {
 		User,
 		Lock,
-		Message
+		Message,
+    ChatSquare
 	},
   data() {
     return {
@@ -65,15 +90,22 @@ export default {
       },
       model: {
         email: "",
-        password: ""
+        code: "",
+        password: "",
+        confirm: "",
       },
       loading: false,
       rules: {
         email: [
           {
             required: true,
-            message: "Email is required",
-            trigger: "blur"
+            message: "邮箱不能为空",
+            trigger: "blur",
+          },
+          {
+            type: 'email',
+            message: "必需为邮件地址",
+            trigger: "blur",
           },
           {
             min: 4,
@@ -143,6 +175,11 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.code-btn {
+  width: 40px;
+  height: 24px;
+}
 .login {
   flex: 1;
   display: flex;
@@ -166,10 +203,11 @@ export default {
 	margin-left:50px
 }
 </style>
-<style lang="scss">
-$teal: rgb(0, 124, 137);
+<style lang="scss" scoped>
+$teal: rgb(64, 158, 255);
 .el-button--primary {
   background: $teal;
+  background-color: $teal;
   border-color: $teal;
 
   &:hover,

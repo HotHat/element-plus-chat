@@ -25,14 +25,19 @@ const app = createApp(App);
 const routeArr: Array<RouteRecordRaw> = [
 	{
 		path: '/login',
-		name: 'login',
+		name: 'Login',
 		component: () => import('./views/Login.vue')
 	},
 
 	{
 		path: '/chat',
-		name: 'chat',
+		name: 'Chat',
 		component: () => import('./views/Chat.vue')
+	},
+	{
+		path: '/sign-up',
+		name: 'SignUp',
+		component: () => import('./views/SignUp.vue')
 	},
 ]
 
