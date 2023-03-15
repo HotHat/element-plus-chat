@@ -1,7 +1,6 @@
 import { createApp } from "vue";
 import App from "./App.vue";
-
-import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router';
+import router from "~/router"
 
 // import "~/styles/element/index.scss";
 
@@ -21,30 +20,6 @@ import "element-plus/theme-chalk/src/message.scss"
 
 const app = createApp(App);
 // app.use(ElementPlus);
-
-const routeArr: Array<RouteRecordRaw> = [
-	{
-		path: '/login',
-		name: 'Login',
-		component: () => import('./views/Login.vue')
-	},
-
-	{
-		path: '/chat',
-		name: 'Chat',
-		component: () => import('./views/Chat.vue')
-	},
-	{
-		path: '/sign-up',
-		name: 'SignUp',
-		component: () => import('./views/SignUp.vue')
-	},
-]
-
-const router = createRouter({
-	history: createWebHistory(import.meta.env.BASE_URL),
-	routes: routeArr
-})
 
 app.use(router)
 

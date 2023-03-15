@@ -5,26 +5,32 @@ const Axios = axios.create({
 	headers: {
 		"Content-Type": "application/json"
 	},
-	proxy: {
-    protocol: 'http',
-    host: '127.0.0.1',
-    port: 80,
-    // auth: {
-      // username: 'mikeymike',
-      // password: 'rapunz3l'
-    // }
-  },
-  
 })
 
 
 Axios.interceptors.request.use((config:any) =>{
+  let token = localStorage.getItem('token')
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+
 	return config
 }, err => Promise.reject(err))
 
 
-// Axios.interceptors.response.use((res: any) => {
-	// return res
-// })
+Axios.interceptors.response.use((res: any) => {
+  let auth = res.headers.authonization
+
+  if (auth) {
+    auth = auth.replace('Bearer ', '')
+    localStorage.setItem("token", auth)
+  }
+
+
+	return res
+}, err => {
+  return Promise.reject(err)
+})
 
 export default Axios

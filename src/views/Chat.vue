@@ -4,7 +4,6 @@
   <div class="common-layout">
 
     <el-container>
-
       <el-header height="60px"
 
         ><div
@@ -17,53 +16,43 @@
 
           ChatGpt在线体验
 
-        </div></el-header
-
-      >
-
-      <el-main
-
-        ><div class=".mainContent" style="height: 80vh; overflow: hidden; ">
-
-       
-
-     
-
-          <div style="overflow-y: scroll; height: calc(80vh - 260px);">
-
-          <el-timeline style="font-size:large">
-
-            <el-timeline-item
-
-              v-for="(activity, index) in activities"
-
-              :key="index"
-
-              :icon="activity.icon"
-
-              :type="activity.type"
-
-              :color="activity.color"
-
-              :size="activity.size"
-
-              :hollow="activity.hollow"
-
-              :timestamp="activity.timestamp"
-
-            >
-
-            <el-icon v-if="activity.userType==2"><User /></el-icon>  
-
-            <el-icon v-if="activity.userType==1"><Bell /></el-icon>  
-
-              <span v-html="activity.content"></span>
-
-            </el-timeline-item>
-
-          </el-timeline>
-
         </div>
+      </el-header>
+
+      <el-main>
+        <div class=".mainContent" style="height: 100%; overflow: hidden; ">
+          <div style="height: calc(100vh - 60px - 5vh - 420px);">
+            <el-timeline style="font-size:large">
+              <el-timeline-item
+                v-for="(activity, index) in activities"
+
+                :key="index"
+
+                :icon="activity.icon"
+
+                :type="activity.type"
+
+                :color="activity.color"
+
+                :size="activity.size"
+
+                :hollow="activity.hollow"
+
+                :timestamp="activity.timestamp"
+
+              >
+
+              <el-icon v-if="activity.userType==2"><User /></el-icon>  
+
+              <el-icon v-if="activity.userType==1"><Bell /></el-icon>  
+
+                <span v-html="activity.content"></span>
+
+              </el-timeline-item>
+
+            </el-timeline>
+
+          </div>
 
         <el-card class="box-card">
 
@@ -105,9 +94,8 @@
 
         </el-card>
 
-        </div></el-main
-
-      >
+        </div>
+      </el-main>
 
       <el-footer height="5vh"><el-icon><Sunny /></el-icon>体验版(网络问题 回复时间会长，耐心等待) power by zhoufc</el-footer>
 
