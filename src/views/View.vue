@@ -72,7 +72,7 @@
             </el-breadcrumb>
           </div>
 
-          <el-scrollbar class="page-content mt-10">
+          <el-scrollbar class="page-content mt-5">
             <el-config-provider :locale="locale">
               <router-view />
             </el-config-provider>
@@ -159,8 +159,8 @@ const init = () => {
         },
         {
           id: 44,
-          title: "电子签章",
-          path: "/home",
+          title: "表单",
+          path: "/form",
         }
       ]
     },{
@@ -362,6 +362,6 @@ $header-height: 60px;
 }
 
 .page-content{
-  height: calc( 100% - 64px);
+  height: calc( 100% - 104px);
 }
 </style>

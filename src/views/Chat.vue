@@ -21,8 +21,10 @@
 
       <el-main>
         <div class=".mainContent" style="height: 100%; overflow: hidden; ">
+          <el-scrollbar ref="scrollbarRef">
           <div style="height: calc(100vh - 60px - 5vh - 420px);">
-            <el-timeline style="font-size:large">
+            <div  ref="innerRef">
+              <el-timeline style="font-size:large" >
               <el-timeline-item
                 v-for="(activity, index) in activities"
 
@@ -38,7 +40,7 @@
 
                 :hollow="activity.hollow"
 
-                :timestamp="activity.timestamp"
+                :timestamp="timestamp"
 
               >
 
@@ -52,19 +54,14 @@
 
             </el-timeline>
 
-          </div>
-
-        <el-card class="box-card">
-
-          <template #header>
-
-            <div class="card-header">
-
-              <span>输入对话</span>
 
             </div>
+            
+          </div>
 
-          </template>
+
+          </el-scrollbar>
+                  <el-card class="box-card">
 
           <el-input
 
@@ -114,7 +111,12 @@ import { ref,shallowReactive,shallowRef } from "vue";
 
 import { chat } from "~/api/chat";
 
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElScrollbar, ElTimeline } from 'element-plus'
+
+const scrollbarRef = ref<typeof ElScrollbar>()
+const innerRef = ref<HTMLDivElement>()
+
+
 
 const textarea =ref("");
 
@@ -124,6 +126,12 @@ const sendDisabled =shallowRef(false);
 
 const sendChat = (data) => {
   let prompt = textarea.value;
+
+  // console.log("height", innerRef.value!.scrollHeight)
+  // console.log("height", innerRef.value!.clientHeight)
+  // console.log("height", innerRef.value!.clientHeight)
+  // scrollbarRef.value!.setScrollTop(innerRef.value!.scrollHeight)
+
 
   if(prompt!=''){
     textarea.value='';
@@ -244,6 +252,9 @@ let activities = shallowReactive([
   },
 
 ]);
+
+
+
 
 </script>
 

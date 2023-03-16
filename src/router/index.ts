@@ -36,6 +36,25 @@ const routeArr: Array<RouteRecordRaw> = [
 					title: 'ChatGPT'
 				}
 			},
+			{
+				path: '/tools',
+				name: 'Tools',
+				redirect: '/form',
+				meta: {
+					title: '工具'
+				},
+				children: [
+					{
+						path: '/form',
+						name: 'Form',
+						component: () => import('~/views/tools/Form.vue'),
+						meta: {
+							title: '表单'
+						}
+					},
+				]
+
+			},
 		]
 	},
 
