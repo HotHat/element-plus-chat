@@ -3,12 +3,12 @@
 				<el-form :model="formInline" class="demo-form-inline" :size="formSize">
 					<el-row :gutter="20">
 						<el-col :span="6">
-							<el-form-item label="Approved by">
+							<el-form-item label="标题1">
 								<el-input v-model="formInline.user" placeholder="Approved by" />
 							</el-form-item>
 						</el-col>
 						<el-col :span="6">
-							<el-form-item label="Activity zone">
+							<el-form-item label="标题2">
 								<el-select v-model="formInline.region" placeholder="Activity zone">
 									<el-option label="Zone one" value="shanghai" />
 									<el-option label="Zone two" value="beijing" />
@@ -17,7 +17,7 @@
 						</el-col>
 						<el-col :span="12">
 							<el-form-item>
-								<el-button type="primary" @click="onSubmit">Query</el-button>
+								<el-button type="primary" @click="onSubmit">搜索</el-button>
 							</el-form-item>
 						</el-col>
 					</el-row>
@@ -31,7 +31,9 @@
   </div>
 </template>
 <style scoped>
-
+	.el-select {
+		width: 100%;
+	}
 </style>
 
 <script lang="ts">
