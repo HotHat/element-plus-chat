@@ -20,7 +20,7 @@ Axios.interceptors.request.use((config:any) =>{
 
 
 Axios.interceptors.response.use((res: any) => {
-  let auth = res.headers.authonization
+  let auth = res.headers.authorization
 
   if (auth) {
     auth = auth.replace('Bearer ', '')

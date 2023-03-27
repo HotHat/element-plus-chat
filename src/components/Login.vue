@@ -6,19 +6,19 @@
         class="login-form"
         :model="model"
         :rules="rules"
-        ref="form"
+        ref="formRef"
         size="large"
-        @submit.native.prevent="login"
+        @keyup.enter="onSubmit"
       >
         <el-form-item prop="email">
-          <el-input v-model="model.email" placeholder="Email">
+          <el-input v-model="model.email" placeholder="请输入邮箱">
 						<template #prefix>
 							<el-icon class="el-input__icon"><Message /></el-icon>
 						</template>
 					</el-input>
         </el-form-item>
-        <el-form-item prop="captcha">
-          <el-input v-model="model.captchaCode" placeholder="验证码" type="text">
+        <el-form-item prop="captchaCode">
+          <el-input v-model="model.captchaCode" placeholder="请输入验证码" type="text">
             <template #prefix>
               <el-icon class="el-input__icon"><Picture /></el-icon>
             </template>
@@ -39,7 +39,7 @@
         <el-form-item prop="password">
           <el-input
             v-model="model.password"
-            placeholder="Password"
+            placeholder="请输入密码"
             type="password"
           >
 						<template #prefix>
@@ -54,9 +54,9 @@
             :loading="loading"
             class="login-button"
             type="primary"
-            native-type="submit"
+            @click="onSubmit(formRef) "
             block
-          >Login</el-button>
+          >登录</el-button>
         </el-form-item>
         <a class="forgot-password" href="https://oxfordinformatics.com/">忘记密码</a>
 				<router-link to="/sign-up">注册</router-link>
@@ -67,7 +67,7 @@
 
 <script lang="ts">
 import { User, Lock, Message, Picture } from '@element-plus/icons-vue'
-import { ElMessage } from 'element-plus'
+import { ElMessage, FormInstance } from 'element-plus'
 import Axios from '~/api/axios'
 import { defineComponent, ref } from 'vue'
 
@@ -86,6 +86,15 @@ export default defineComponent({
       img: ""
     })
 
+    const rules = ref({
+      email : [ 
+        { required: true, message: "邮件不能为空", trigger: "blur" },  
+        { type: 'email', message: "请输入邮件", trigger: "blur" },  
+        ], 
+      captchaCode: [{ required: true, message: "验证码不能为空", trigger: "blur" }], 
+      password: [{ required: true, message: "密码不能为空", trigger: "blur" }],
+    })
+
     const loading = ref(false)
 
     const getCaptcha = () => {
@@ -95,13 +104,33 @@ export default defineComponent({
       })
     }
 
+    const onSubmit = (formEl: FormInstance | undefined) => {
+      let params = {
+        email: model.value.email,
+        captcha: model.value.captchaCode,
+        password: model.value.password,
+      }
+      Axios.post('/api/login', params).then((res: any) => {
+        console.log(res)
+          if (res.code != 200) {
+            ElMessage({
+            message: res.message,
+            type: 'error'
+          })
+        }
+        // 登录跳转
+      })
+    }
+
     getCaptcha()
 
     return {
       model,
       captcha,
       loading,
+      rules,
       getCaptcha,
+      onSubmit,
     }
   }
 })
