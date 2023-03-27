@@ -7,6 +7,7 @@
         :model="model"
         :rules="rules"
         ref="form"
+        size="large"
         @submit.native.prevent="login"
       >
         <el-form-item prop="email">
@@ -16,6 +17,25 @@
 						</template>
 					</el-input>
         </el-form-item>
+        <el-form-item prop="captcha">
+          <el-input v-model="model.captchaCode" placeholder="验证码" type="text">
+            <template #prefix>
+              <el-icon class="el-input__icon"><Picture /></el-icon>
+            </template>
+						<template #suffix>
+              <el-image :src="captcha.img" style="width: 80px;height:80%" @click="getCaptcha">
+                  <template #error>
+                    <div class="flex-center" style="height:100%;background-color: #E6E8EB">
+                        <el-icon class="el-input__icon"><Picture /></el-icon>
+                    </div>
+                  </template>
+              </el-image>
+						</template>
+
+          </el-input>
+        </el-form-item>
+
+
         <el-form-item prop="password">
           <el-input
             v-model="model.password"
@@ -28,6 +48,7 @@
 
 				</el-input>
         </el-form-item>
+        
         <el-form-item>
           <el-button
             :loading="loading"
@@ -45,100 +66,46 @@
 </template>
 
 <script lang="ts">
-import { User, Lock, Message } from '@element-plus/icons-vue'
+import { User, Lock, Message, Picture } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
-import * as Api from '~/api/chat'
+import Axios from '~/api/axios'
+import { defineComponent, ref } from 'vue'
 
-
-export default {
-  name: "Login",
-	components: {
-		User,
-		Lock,
-		Message
-	},
-  data() {
-    return {
-      validCredentials: {
-        email: "lightscope",
-        password: "lightscope"
-      },
-      model: {
-        email: "",
-        password: ""
-      },
-      loading: false,
-      rules: {
-        email: [
-          {
-            required: true,
-            message: "Email is required",
-            trigger: "blur"
-          },
-          {
-            min: 4,
-            message: "Email length should be at least 5 characters",
-            trigger: "blur"
-          }
-        ],
-        password: [
-          { required: true, message: "Password is required", trigger: "blur" },
-          {
-            min: 5,
-            message: "Password length should be at least 5 characters",
-            trigger: "blur"
-          }
-        ]
-      }
-    };
+export default defineComponent({
+  components: {
+    User, Lock, Message, Picture
   },
-  methods: {
-    simulateLogin() {
-      return new Promise(resolve => {
-        setTimeout(resolve, 800);
-      });
-    },
-    async login() {
-      let valid = await this.$refs.form.validate();
-      if (!valid) {
-        return;
-      }
-      this.loading = true;
-      // await this.simulateLogin();
-			Api.login(this.model.email, this.model.password).then(function(response){
-				console.log(response)
-			}).catch(function(error) {
-				ElMessage({
-					showClose: true,
-					message: error.message,
-					type: 'error',
-				})
+  setup() {
+    const model = ref({
+        email: "",
+        password: "",
+        captchaCode: ""
+    })
 
-			})
+    const captcha = ref({
+      img: ""
+    })
 
+    const loading = ref(false)
 
+    const getCaptcha = () => {
+      console.log('------------')
+      Axios.get('/api/captcha').then((res: any) => {
+        captcha.value.img = res.data.url
+      })
+    }
 
-      this.loading = false;
-      if (
-        this.model.email=== this.validCredentials.email&&
-        this.model.password === this.validCredentials.password
-      ) {
-				ElMessage({
-					showClose: true,
-					message: 'Congrats, this is a success message.',
-					type: 'success',
-				})
-      } else {
-				ElMessage({
-					showClose: true,
-					message: 'Oops, this is a error message.',
-					type: 'error',
-				})
+    getCaptcha()
 
-      }
+    return {
+      model,
+      captcha,
+      loading,
+      getCaptcha,
     }
   }
-};
+})
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

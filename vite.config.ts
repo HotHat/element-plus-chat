@@ -64,12 +64,12 @@ export default defineConfig({
   ],
   server: {
     host: '127.0.0.1', 
-    port: 3000,
+    port: 4000,
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1',
+        target: 'http://127.0.0.1:3000',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
+        rewrite: (path) => path.replace(/^\/api/, '/api'),
       },
       // with RegEx: http://localhost:5173/fallback/ -> http://jsonplaceholder.typicode.com/
       // '^/fallback/.*': {
