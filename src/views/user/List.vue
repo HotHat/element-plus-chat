@@ -137,13 +137,10 @@ setup() {
 		Axios.get('/api/panel/user/list', {params}).then((res: any) => {
 			loading = false
 
-			if (res.code !== 200) {
-				return
-			}
 			let lst = res.data.list
 			tableData.value = lst
 			page.value = res.data.page
-		}).catch(() => {
+		}).catch((err) => {
 			loading = false
 		})
 	}

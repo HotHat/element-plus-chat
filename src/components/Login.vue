@@ -115,20 +115,15 @@ export default defineComponent({
       }
       Axios.post('/api/panel/login', params).then((res: any) => {
         console.log(res)
-        if (res.code != 200) {
-          ElMessage({
-            message: res.message,
-            type: 'error'
-          })
-        } else {
-          // 登录跳转
-          localStorage.setItem('userInfo', JSON.stringify({
-            id: res.data.id,
-            email: res.data.email,
-          }))
-          router.replace('/')
+        
+        // 登录跳转
+        localStorage.setItem('token', res.data.token)
+        localStorage.setItem('userInfo', JSON.stringify({
+          id: res.data.id,
+          email: res.data.email,
+        }))
+        router.replace('/')
 
-        }
       })
     }
 

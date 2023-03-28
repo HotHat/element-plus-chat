@@ -29,13 +29,13 @@ Axios.interceptors.response.use((res: any) => {
     localStorage.setItem("token", auth)
   }
 
-  if (data.code == 500) {
+  if (data.code !== 200) {
     ElMessage({
       message: data.message,
       type: 'error'
     })
+    return Promise.reject(new Error(data.message))
   }
-
 
 	return data
 }, err => {
