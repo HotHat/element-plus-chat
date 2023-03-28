@@ -1,4 +1,5 @@
 import axios from  "axios"
+import { ElMessage } from 'element-plus'
 
 const Axios = axios.create({
 	baseURL: import.meta.env.BASE_URL,
@@ -21,14 +22,22 @@ Axios.interceptors.request.use((config:any) =>{
 
 Axios.interceptors.response.use((res: any) => {
   let auth = res.headers.authorization
+  let data = res.data
 
   if (auth) {
     auth = auth.replace('Bearer ', '')
     localStorage.setItem("token", auth)
   }
 
+  if (data.code == 500) {
+    ElMessage({
+      message: data.message,
+      type: 'error'
+    })
+  }
 
-	return res.data
+
+	return data
 }, err => {
   return Promise.reject(err)
 })

@@ -70,12 +70,15 @@ import { User, Lock, Message, Picture } from '@element-plus/icons-vue'
 import { ElMessage, FormInstance } from 'element-plus'
 import Axios from '~/api/axios'
 import { defineComponent, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   components: {
     User, Lock, Message, Picture
   },
   setup() {
+    const router = useRouter()
+
     const model = ref({
         email: "",
         password: "",
@@ -99,7 +102,7 @@ export default defineComponent({
 
     const getCaptcha = () => {
       console.log('------------')
-      Axios.get('/api/captcha').then((res: any) => {
+      Axios.get('/api/panel/captcha').then((res: any) => {
         captcha.value.img = res.data.url
       })
     }
@@ -110,18 +113,26 @@ export default defineComponent({
         captcha: model.value.captchaCode,
         password: model.value.password,
       }
-      Axios.post('/api/login', params).then((res: any) => {
+      Axios.post('/api/panel/login', params).then((res: any) => {
         console.log(res)
-          if (res.code != 200) {
-            ElMessage({
+        if (res.code != 200) {
+          ElMessage({
             message: res.message,
             type: 'error'
           })
+        } else {
+          // 登录跳转
+          localStorage.setItem('userInfo', JSON.stringify({
+            id: res.data.id,
+            email: res.data.email,
+          }))
+          router.replace('/')
+
         }
-        // 登录跳转
       })
     }
 
+    // init
     getCaptcha()
 
     return {

@@ -37,6 +37,23 @@ const routeArr: Array<RouteRecordRaw> = [
 				}
 			},
 			{
+				path: '/user',
+				name: 'User',
+				meta: {
+					title: '会员管理'
+				},
+				children: [
+					{
+						path: '/user/list',
+						name: 'UserList',
+						component: () => import('~/views/user/list.vue'),
+						meta: {
+							title: '会员列表'
+						}
+					},
+				]
+			},
+			{
 				path: '/tools',
 				name: 'Tools',
 				redirect: '/form',
@@ -64,6 +81,20 @@ const routeArr: Array<RouteRecordRaw> = [
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
 	routes: routeArr
+})
+
+router.beforeEach(async (to, from) => {
+	let user = localStorage.getItem('userInfo')
+  if (
+    // make sure the user is authenticated
+    !user &&
+    // ❗️ Avoid an infinite redirect
+    to.name !== 'Login'
+  ) {
+
+    // redirect the user to the login page
+    return { name: 'Login' }
+  }
 })
 
 export default router

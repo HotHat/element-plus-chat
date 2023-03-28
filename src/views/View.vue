@@ -2,18 +2,18 @@
   <div class="views">
     <el-container>
       <el-header>
-        <h1>智慧长龙数字化协同管理软件</h1>
+        <h1>Glyhux后台管理系统</h1>
 
         <div class="ml-auto nav">
-          <div class="nav-item">吉林省辉南长龙药业股份有限公司</div>
+          <div class="nav-item"></div>
           
           <el-icon size="24px" @click="toUrl({path: '/Message'})" style="cursor: pointer;"><ChatDotRound /></el-icon>
 
           <el-dropdown>
-            <div class="nav-item">{{userInfo.name}}</div>
+            <div class="nav-item">{{userInfo.email}}</div>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item>{{userInfo.tel}}</el-dropdown-item>
+                <el-dropdown-item>{{userInfo.email}}</el-dropdown-item>
                 <el-dropdown-item @click="setting.show = true">修改密码</el-dropdown-item>
                 <el-dropdown-item>退出</el-dropdown-item>
               </el-dropdown-menu>
@@ -114,7 +114,7 @@ import { onBeforeRouteUpdate, useRoute, useRouter } from "vue-router"
 import zhCn from 'element-plus/dist/locale/zh-cn'
 
 import { ChatDotRound, ArrowRight, HomeFilled, Location, Position, Service, Money, Setting, UserFilled, Menu, Message, CopyDocument, Link, Operation } from '@element-plus/icons-vue'
-import * as Axios from '~/api/chat';
+import Axios from '~/api/axios';
 import { ElMessage } from 'element-plus';
 
 
@@ -130,93 +130,72 @@ const menuActive = ref(currentRoute.value.fullPath)
 
 // let info: any = localStorage.getItem('userInfo')
 // const userInfo: any = JSON.parse(info)
+
+
+const data = JSON.parse(localStorage.getItem('userInfo') || "")
+
 const userInfo = {
-  name: "Tel",
-  tel: "152928372872",
+  email: data.email,
   checkMenu: []
 }
-provide('pagePower', userInfo.checkMenu)
+console.log(userInfo)
+// provide('pagePower', userInfo.checkMenu)
 
 const menuList = shallowRef([])
 const init = () => {
   const menuArr: any = [
     {
-      id: 2,
+      id: 10,
       title: "首页",
       icon: HomeFilled,
       path: "/home",
       children: []
     },{
-      id: 5,
-      title: "工具中心",
+      id: 20,
+      title: "订单管理",
       icon: Location,
-      path: "/tools",
+      path: "/order",
       children: [
         {
-          id: 10,
+          id: 21,
           title: "ChatGPT",
           path: "/chat",
         },
         {
-          id: 44,
+          id: 22,
           title: "表单",
           path: "/form",
         }
       ]
-    },{
-      id: 6,
-      title: "合作管理",
+    },
+    {
+      id: 30,
+      title: "会员管理",
       icon: Position,
-      path: "/home",
+      path: "/user",
       children: [
         {
-          id: 11,
-          title: "标书管理",
-          path: "/home",
+          id: 31,
+          title: "会员列表",
+          path: "/user/list",
         },
-        {
-          id: 12,
-          title: "竞标管理",
-          path: "/home",
-        },
-        {
-          id: 13,
-          title: "协议管理",
-          path: "/home",
-        },
-        {
-          id: 14,
-          title: "服务方管理",
-          path: "/home",
-        },
-        {
-          id: 65,
-          title: "服务方银行账户管理",
-          path: "/home",
-        }
       ]
     },{
-      id: 7,
-      title: "服务管理",
+      id: 40,
+      title: "系统管理",
       icon: Service,
       path: "/home",
       children: [
         {
-          id: 15,
+          id: 41,
           title: "客户管理",
-          path: "/home",
+          path: "/chat",
         },
         {
-          id: 17,
+          id: 42,
           title: "线上拜访",
           path: "/home",
-        },
-        {
-          id: 16,
-          title: "线下拜访",
-          path: "/home",
-        },
-        
+        }
       ]
     },
   ]
@@ -298,7 +277,7 @@ const handleSettingCancel = () => {
     setting.value.data = {}
 }
 const settingItem = () => {
-  Axios.post('/panel/admin/change_pwd', setting.value.data).then((res: any) => {
+  Axios.post('/api/panel/password/change', setting.value.data).then((res: any) => {
     ElMessage({
       message: res.meta.msg,
       type: "success"
@@ -316,7 +295,7 @@ const handleOut = () => {
   localStorage.removeItem('token')
   router.replace('/login')
 
-  Axios.get('/panel/account_logout')
+  // Axios.get('/api/logout')
 }
 
 </script>
