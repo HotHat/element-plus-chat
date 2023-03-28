@@ -63,11 +63,11 @@ export default defineConfig({
     }),
   ],
   server: {
-    host: '127.0.0.1', 
+    host: true,
     port: 4000,
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:3000',
+        target: 'http://node:3000',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '/api'),
       },
