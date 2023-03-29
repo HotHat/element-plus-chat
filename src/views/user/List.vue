@@ -28,7 +28,7 @@
 				<el-table-column prop="loginIp" label="最近登录IP" />
 				<el-table-column  label="状态" >
 					<template #default="scope">
-						<span :class="scope.row.status == '启用' ? 'status-on' : 'status-off'">{{  scope.row.status }}</span>
+						<el-text :type="scope.row.status == '启用' ? 'primary' : 'danger'">{{  scope.row.status }}</el-text>
 					</template>
 				</el-table-column>
 
