@@ -1,5 +1,6 @@
 import axios from  "axios"
 import { ElMessage } from 'element-plus'
+import { useRouter } from 'vue-router'
 
 const Axios = axios.create({
 	baseURL: import.meta.env.BASE_URL,
@@ -30,6 +31,14 @@ Axios.interceptors.response.use((res: any) => {
   }
 
   if (data.code !== 200) {
+    // not auth
+    if (data.code === 401) {
+        let router = useRouter()
+        localStorage.removeItem('token')
+        localStorage.removeItem('userInfo')
+        router.replace({ name: 'Login'})
+    }
+
     ElMessage({
       message: data.message,
       type: 'error'
@@ -39,6 +48,10 @@ Axios.interceptors.response.use((res: any) => {
 
 	return data
 }, err => {
+  ElMessage({
+    message: err.message,
+    type: 'error'
+  })
   return Promise.reject(err)
 })
 

@@ -12,9 +12,11 @@ import router from "~/router"
 
 import "~/styles/index.scss";
 import 'uno.css'
+// import "element-plus/dist/index.css"
 
 // If you want to use ElMessage, import it.
 import "element-plus/theme-chalk/src/message.scss"
+import "element-plus/theme-chalk/src/message-box.scss"
 
 
 
