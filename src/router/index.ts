@@ -54,8 +54,58 @@ const routeArr: Array<RouteRecordRaw> = [
 				]
 			},
 			{
-				path: '/tools',
-				name: 'Tools',
+				path: '/agent',
+				name: 'Agent',
+				meta: {
+					title: '代理管理'
+				},
+				children: [
+					{
+						path: '/agent/site',
+						name: 'AgentSite',
+						component: () => import('~/views/user/list.vue'),
+						meta: {
+							title: '代理站点'
+						}
+					},
+					{
+						path: '/agent/list',
+						name: 'AgentList',
+						component: () => import('~/views/user/list.vue'),
+						meta: {
+							title: '代理列表'
+						}
+					},
+				]
+			},
+			{
+				path: '/post',
+				name: 'Post',
+				meta: {
+					title: '文章管理'
+				},
+				children: [
+					{
+						path: '/post/category',
+						name: 'PostCategory',
+						component: () => import('~/views/post/category.vue'),
+						meta: {
+							title: '文章分类'
+						}
+					},
+					{
+						path: '/post/list',
+						name: 'PostList',
+						component: () => import('~/views/user/list.vue'),
+						meta: {
+							title: '文章列表'
+						}
+					},
+				]
+			},
+			{
+				path: '/system',
+				name: 'System',
 				redirect: '/form',
 				meta: {
 					title: '工具'

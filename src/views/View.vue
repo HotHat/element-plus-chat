@@ -180,19 +180,38 @@ const init = () => {
           path: "/user/list",
         },
       ]
-    },{
+    },
+    {
       id: 40,
+      title: "文章管理",
+      icon: Position,
+      path: "/user",
+      children: [
+        {
+          id: 41,
+          title: "文章分类",
+          path: "/post/category",
+        },
+        {
+          id: 41,
+          title: "文章列表",
+          path: "/post/list",
+        },
+      ]
+    },
+    {
+      id: 50,
       title: "系统管理",
       icon: Service,
       path: "/home",
       children: [
         {
-          id: 41,
+          id: 51,
           title: "客户管理",
           path: "/chat",
         },
         {
-          id: 42,
+          id: 52,
           title: "线上拜访",
           path: "/home",
         }
