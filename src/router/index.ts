@@ -46,9 +46,17 @@ const routeArr: Array<RouteRecordRaw> = [
 					{
 						path: '/user/list',
 						name: 'UserList',
-						component: () => import('~/views/user/list.vue'),
+						component: () => import('~/views/user/List.vue'),
 						meta: {
 							title: '会员列表'
+						}
+					},
+					{
+						path: '/user/detail',
+						name: 'UserDetail',
+						component: () => import('~/views/user/Detail.vue'),
+						meta: {
+							title: '会员详情'
 						}
 					},
 				]

@@ -2,7 +2,7 @@
   <div class="views">
     <el-container>
       <el-header>
-        <h1>Glyhux后台管理系统</h1>
+        <h1>后台管理系统</h1>
 
         <div class="ml-auto nav">
           <div class="nav-item"></div>
@@ -27,11 +27,11 @@
         <el-aside width="200px">
           <el-scrollbar>
           <el-menu
-            active-text-color="#ffd04b"
-            background-color="#545c64"
+            active-text-color="var(--el-color-primary)"
+            background-color="#fff"
             :default-openeds="menuOpeneds"
             :default-active="menuActive"
-            text-color="#fff"
+            text-color="#000"
             router
             @select="handleMenuSelect"
           >
@@ -178,6 +178,13 @@ const init = () => {
           id: 31,
           title: "会员列表",
           path: "/user/list",
+          children: [
+            {
+              id: 311,
+              title: "会员详情",
+              path: "/user/detail",
+            },
+          ]
         },
       ]
     },
@@ -320,8 +327,11 @@ const handleOut = () => {
 </script>
 
 <style lang="scss" scoped>
-$color-main: #F66;
+$color-main: #03a9f4;
 $header-height: 60px;
+:root{
+  --el-menu-hover-bg-color: #fff;
+}
 
 .el-header{
   display: flex;
@@ -350,13 +360,18 @@ $header-height: 60px;
 
 .el-aside{
   height: calc(100vh - $header-height);
-  background-color: #333;
+  background-color: #fff;
 }
 
 .el-main{
   height: calc(100vh - $header-height);
   padding: 0;
   background-color: #f2f2f2;
+}
+
+.el-menu-item:hover {
+  color: #79bbff;
+  background-color: #eee;
 }
 
 .page-content{

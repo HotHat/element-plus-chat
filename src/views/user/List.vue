@@ -34,8 +34,9 @@
 
 				<el-table-column prop="createdAt" label="创建时间" />
 				
-				<el-table-column fixed="right" label="操作" width="120">
+				<el-table-column fixed="right" label="操作" width="180">
 					<template #default="scope">
+						<el-button link type="primary" size="small" @click="toDetail(scope.row)">详情</el-button >
 						<el-button link type="primary" size="small" @click="changePassword(scope.row)">修改密码</el-button >
 							<el-popconfirm
 								confirm-button-text="确认"
@@ -109,6 +110,7 @@ import { defineComponent, ref, reactive } from 'vue'
 import { ElMessage, FormInstance, FormRules, ElMessageBox } from 'element-plus'
 import { InfoFilled } from '@element-plus/icons-vue'
 import Axios from '~/api/axios'
+import router from '~/router'
 
 
 export default defineComponent({
@@ -318,6 +320,9 @@ setup() {
 		console.log(val.value)
 		console.log(val.id)
 	}
+	const toDetail = (user: any) => {
+		router.push({ name: "UserDetail", query: { id: user.id }})
+	}
 
 	fetchData()
 
@@ -340,6 +345,7 @@ setup() {
 		ruleFormRef,
 		changePassword,
 		changeStatus,
+		toDetail,
 	}
 },
 })

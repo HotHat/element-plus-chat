@@ -1,6 +1,6 @@
 import axios from  "axios"
 import { ElMessage } from 'element-plus'
-import { useRouter } from 'vue-router'
+import router from '~/router'
 
 const Axios = axios.create({
 	baseURL: import.meta.env.BASE_URL,
@@ -33,7 +33,6 @@ Axios.interceptors.response.use((res: any) => {
   if (data.code !== 200) {
     // not auth
     if (data.code === 401) {
-        let router = useRouter()
         localStorage.removeItem('token')
         localStorage.removeItem('userInfo')
         router.replace({ name: 'Login'})
@@ -43,7 +42,7 @@ Axios.interceptors.response.use((res: any) => {
       message: data.message,
       type: 'error'
     })
-    return Promise.reject(new Error(data.message))
+    return Promise.reject(data.message)
   }
 
 	return data
