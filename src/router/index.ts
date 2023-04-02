@@ -71,7 +71,7 @@ const routeArr: Array<RouteRecordRaw> = [
 					{
 						path: '/agent/site',
 						name: 'AgentSite',
-						component: () => import('~/views/user/list.vue'),
+						component: () => import('~/views/agent/Site.vue'),
 						meta: {
 							title: '代理站点'
 						}
@@ -79,7 +79,7 @@ const routeArr: Array<RouteRecordRaw> = [
 					{
 						path: '/agent/list',
 						name: 'AgentList',
-						component: () => import('~/views/user/list.vue'),
+						component: () => import('~/views/agent/list.vue'),
 						meta: {
 							title: '代理列表'
 						}

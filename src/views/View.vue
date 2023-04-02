@@ -113,7 +113,9 @@ import { provide, ref, shallowRef, watch} from 'vue';
 import { onBeforeRouteUpdate, useRoute, useRouter } from "vue-router"
 import zhCn from 'element-plus/dist/locale/zh-cn'
 
-import { ChatDotRound, ArrowRight, HomeFilled, Location, Position, Service, Money, Setting, UserFilled, Menu, Message, CopyDocument, Link, Operation } from '@element-plus/icons-vue'
+import { ChatDotRound, ArrowRight, HomeFilled, Location, Position, Service, Money, Setting, House,
+   UserFilled, Menu, Message, CopyDocument, Link, Operation , Edit, User, ShoppingCartFull, Connection
+} from '@element-plus/icons-vue'
 import Axios from '~/api/axios';
 import { ElMessage } from 'element-plus';
 
@@ -147,13 +149,13 @@ const init = () => {
     {
       id: 10,
       title: "首页",
-      icon: HomeFilled,
+      icon: House,
       path: "/home",
       children: []
     },{
       id: 20,
       title: "订单管理",
-      icon: Location,
+      icon: ShoppingCartFull,
       path: "/order",
       children: [
         {
@@ -171,7 +173,7 @@ const init = () => {
     {
       id: 30,
       title: "会员管理",
-      icon: Position,
+      icon: User,
       path: "/user",
       children: [
         {
@@ -191,8 +193,8 @@ const init = () => {
     {
       id: 40,
       title: "文章管理",
-      icon: Position,
-      path: "/user",
+      icon: Edit,
+      path: "/post",
       children: [
         {
           id: 41,
@@ -207,18 +209,36 @@ const init = () => {
       ]
     },
     {
-      id: 50,
-      title: "系统管理",
-      icon: Service,
-      path: "/home",
+      id: 60,
+      title: "代理管理",
+      icon: Connection,
+      path: "/agent",
       children: [
         {
-          id: 51,
+          id: 41,
+          title: "代理站点",
+          path: "/agent/site",
+        },
+        {
+          id: 41,
+          title: "代理列表",
+          path: "/agent/list",
+        },
+      ]
+    },
+    {
+      id: 90,
+      title: "系统管理",
+      icon: Setting,
+      path: "/system",
+      children: [
+        {
+          id: 91,
           title: "客户管理",
           path: "/chat",
         },
         {
-          id: 52,
+          id: 92,
           title: "线上拜访",
           path: "/home",
         }

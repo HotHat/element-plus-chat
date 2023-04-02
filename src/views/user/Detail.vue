@@ -8,9 +8,9 @@
             </div>
 
             <div class="rgt">
-                <el-button>编辑</el-button>
-                <el-button type="warning" class="ml-2" @click="showForm">过期</el-button>
-                <el-button type="primary" class="ml-2" @click="showForm">添加服务器</el-button>
+                <el-button size="large">编辑</el-button>
+                <el-button size="large" type="warning" class="ml-2" @click="showForm">过期</el-button>
+                <el-button size="large" type="primary" class="ml-2" @click="showForm">添加服务器</el-button>
             </div>
         </div>
 
